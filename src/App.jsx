@@ -1,6 +1,12 @@
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+
 export function App(){
   return(
-    <h1>Hellow World</h1>
+    <>
+      <Header/>
+      <Footer/>
+    </>
   )
 }
  export default App;
