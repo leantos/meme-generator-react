@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export function Meme() {
   const [meme, setMeme] = React.useState({
@@ -7,11 +7,29 @@ export function Meme() {
     imageUrl: "http://i.imgflip.com/1bij.jpg",
   });
 
-  function handleOnChange(event){
-    const {value, name} = event.currentTarget
+  const [allMemes, setAllMemes] = useState([])
+
+  function handleOnChange(event) {
+    const { value, name } = event.currentTarget
     setMeme(prevMeme => ({
       ...prevMeme,
       [name]: value
+    }))
+  }
+
+  React.useState(() => {
+    fetch('https://api.imgflip.com/get_memes')
+      .then(res => res.json())
+      .then(data => setAllMemes(data.data.memes))
+  }, [])
+
+  function getMemeImage(){
+    const index = Math.floor(Math.random() * allMemes.length)
+    const newMemeUrl = allMemes[index].url
+    
+    setMeme(prevMeme => ({
+      ...prevMeme,
+      imageUrl: newMemeUrl
     }))
   }
 
@@ -37,7 +55,7 @@ export function Meme() {
             onChange={handleOnChange}
           />
         </label>
-        <button>Get a new meme image 🖼️</button>
+        <button onClick={getMemeImage}>Get a new meme image 🖼️</button>
       </div>
       <div className="meme">
         <img src={meme.imageUrl} />
