@@ -1,12 +1,12 @@
-import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { Meme } from "./Meme";
 
-export function App(){
-  return(
+export function App() {
+  return (
     <>
-      <Header/>
-      <Footer/>
+      <Header />
+      <Meme />
     </>
-  )
+  );
 }
- export default App;
+export default App;
